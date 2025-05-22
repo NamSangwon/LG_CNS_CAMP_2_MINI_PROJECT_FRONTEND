@@ -3,7 +3,7 @@ import { createComment } from "/src/apis/postApi";
 import { getLoggedInUserId } from "/src/utils/checkUser.js";
 import { useNavigate } from "react-router-dom"; // navigate 임포트 추가
 
-import CommentList from "./commentList";
+import CommentList from "./CommentList";
 
 import "./postComment.css";
 
