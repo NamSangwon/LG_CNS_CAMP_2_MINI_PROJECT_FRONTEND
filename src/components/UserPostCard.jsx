@@ -22,6 +22,7 @@ export default function UserPostCard({ post, onLikeChange }) {
     liked,
     author_name,
     author_profile_img,
+    summary_id
   } = post;
 
   const pathname = location.pathname;

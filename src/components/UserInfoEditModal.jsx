@@ -15,15 +15,8 @@ export default function UserInfoEditModal({ initialUser, onClose, onSave }) {
   const [avatar, setAvatar] = useState(initialUser.profile_img);
   const [nickname, setNickname] = useState(initialUser.nickname);
   const [summaryTime, setSummaryTime] = useState(
-    initialUser.summary_time || ""
+    initialUser.res_time || ""
   );
-
-  useEffect(() => {
-    const storedTime = localStorage.getItem("res_time");
-    if (storedTime) {
-      setSummaryTime(storedTime);
-    }
-  }, []);
 
   const handleSave = async () => {
     try {
