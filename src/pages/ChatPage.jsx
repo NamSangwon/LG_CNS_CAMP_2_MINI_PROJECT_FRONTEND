@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import "./chatPage.css";
+
 import ChatSidebar from "../components/ChatSidebar";
 import ChatWindow from "../components/ChatWindow";
 import axiosInstance from "../apis/instance";
@@ -16,10 +18,9 @@ export default function ChatPage() {
     const fetchChatList = async () => {
       try {
         const res = await axiosInstance.get("/chat/list");
-        // console.log("채팅 목록:", res.data);
         setChatHistoryList(res.data);
         if (res.data.length > 0) {
-          setLatestChatId(res.data[0].chatId); // 첫 번째 채팅을 최신 채팅으로 간주
+          setLatestChatId(res.data[0].chatId);
         }
       } catch (error) {
         console.error("채팅 목록 불러오기 실패", error);
@@ -28,22 +29,23 @@ export default function ChatPage() {
 
     fetchChatList();
   }, []);
+  useEffect(() => {}, [paramChatId, selectedChatId]);
 
-  const chatIdToFetch = paramChatId || selectedChatId || latestChatId;
+  const activeChatId = paramChatId || selectedChatId || latestChatId;
 
   return (
-    <main>
+    <div className="chat_container">
       <nav aria-label="지난 기록">
         <ChatSidebar
           list={chatHistoryList}
-          selectedChatId={selectedChatId}
+          selectedChatId={activeChatId}
           onSelect={setSelectedChatId}
           currentLatestChatId={latestChatId}
         />
       </nav>
-      <section>
-        <ChatWindow chatId={chatIdToFetch} />
+      <section className="chat_window">
+        <ChatWindow chatId={activeChatId} />
       </section>
-    </main>
+    </div>
   );
 }

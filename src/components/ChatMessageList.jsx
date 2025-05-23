@@ -9,7 +9,6 @@ export default function ChatMessageList({ messages }) {
           key={idx}
           role={message.role}
           content={message.content}
-          timestamp={message.timestamp}
         />
       ))}
     </>

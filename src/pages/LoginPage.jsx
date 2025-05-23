@@ -40,7 +40,7 @@ export default function LoginPage() {
     <div className="login-page">
       <div className="login-container">
         <form className="login-form" onSubmit={handleSubmit}>
-          <h2>로그인</h2>
+          <h2 className="login-title">로그인 👋</h2>
           <label htmlFor="userId">아이디</label>
           <input
             name="userId"
@@ -60,8 +60,8 @@ export default function LoginPage() {
           />
           <button type="submit">로그인</button>
           <div className="links">
-            <span>계정이 없으신가요?</span>
-            <Link to="/signup">회원가입</Link>
+            <span> 계정이 없으신가요? </span>
+            <Link to="/signup"> 회원가입</Link>
           </div>
         </form>
       </div>

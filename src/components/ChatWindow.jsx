@@ -4,8 +4,8 @@ import ChatInput from "./ChatInput";
 import ChatMessageList from "./ChatMessageList";
 import axios from "axios";
 import axiosInstance from "../apis/instance";
-import ChatLoading from "./ChatLoading";
 import ChatErrorBanner from "./ChatErrorBanner";
+import "./chatWindow.css";
 
 export default function ChatWindow({ chatId }) {
   const [chatMessageData, setChatMessageData] = useState([]);
@@ -93,10 +93,11 @@ export default function ChatWindow({ chatId }) {
     }
   };
   return (
-    <div>
-      <ChatMessageList messages={chatMessageData.messageList} />
-      <div ref={bottomRef} />
-      {loading && <ChatLoading />}
+    <div className="chat_window">
+      <div className="scroll_container">
+        <ChatMessageList messages={chatMessageData.messageList} />
+        <div ref={bottomRef} />
+      </div>
       {errorMessage && <ChatErrorBanner errorMessage={errorMessage} />}
       {chatMessageData.writable && (
         <ChatInput onSubmit={onSubmit} disabled={loading} />

@@ -1,0 +1,15 @@
+.chat_container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chat_window {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 62px); /* 고정 높이 */
+  overflow: hidden;
+}

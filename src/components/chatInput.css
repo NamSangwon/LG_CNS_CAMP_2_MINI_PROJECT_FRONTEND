@@ -1,0 +1,100 @@
+.chat_input_counter {
+  padding: 10px;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  text-align: left;
+  color: #888;
+}
+
+.chat_input_form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 20px;
+  margin-bottom: 40px;
+}
+.chat_input_box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f0f0f0;
+  border-radius: 4px;
+  padding: 10px 16px;
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+.chat_input_textarea {
+  width: 100%;
+  min-height: 50px;
+  max-height: 200px;
+  border: none;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  resize: none;
+  line-height: 1.4;
+  overflow-y: auto;
+}
+.chat_input_textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat_input_textarea::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 3px;
+}
+
+.chat_input_textarea::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.chat_input_textarea:focus {
+  outline: none;
+  border-color: transparent;
+}
+.chat_input_textarea::placeholder {
+  color: #ccc;
+  font-size: 0.875rem;
+}
+
+.chat_input_placeholder {
+  width: 36px;
+  height: 36px;
+  align-self: flex-end;
+}
+.chat_input_textarea:disabled {
+  color: #fff;
+  background-color: transparent;
+  opacity: 1;
+}
+
+.chat_input_textarea:disabled::placeholder {
+  color: #fff;
+  opacity: 1;
+}
+.send_icon {
+  cursor: pointer;
+}
+.chat_spinner_container {
+  width: 36px;
+  height: 36px;
+  background-color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat_spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #fff;
+  border-top: 3px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

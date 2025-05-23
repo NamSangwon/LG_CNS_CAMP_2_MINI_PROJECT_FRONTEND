@@ -6,7 +6,9 @@ export default function MainLayout() {
   return (
     <div className="main_layout_wrapper">
       <Header />
-      <Outlet />
+      <div className="main_wrapper">
+        <Outlet />
+      </div>
     </div>
   );
 }

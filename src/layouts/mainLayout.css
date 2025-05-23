@@ -1,7 +1,11 @@
 .main_layout_wrapper {
+  background-color: white;
+}
+.main_wrapper {
   max-width: 950px;
   margin: 0 auto;
-  /* padding: 20px; */
+  /* border-right: 1px solid gray;
+  border-left: 1px solid gray; */
+  min-height: calc(100vh - 60px);
   background-color: white;
-  min-height: 100vh;
 }

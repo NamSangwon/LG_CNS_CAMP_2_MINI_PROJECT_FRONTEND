@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./chatSidebar.css";
 
 export default function ChatSidebar({
   list,
@@ -17,20 +18,23 @@ export default function ChatSidebar({
       ? navigate("/chat")
       : navigate(`/chat?chatId=${chatId}`);
   };
-
   return (
-    <ul>
-      {list.map((chat) => (
-        <li
-          key={chat.chatId}
-          onClick={() => handleSelect(chat.chatId)}
-          style={{
-            background: chat.chatId === selectedChatId ? "red" : "gray",
-          }}
-        >
-          {chat.summaryTitle || "제목 없음"}
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul className="sidebar_list">
+        {list.map((chat) => (
+          <li
+            key={chat.chatId}
+            onClick={() => handleSelect(chat.chatId)}
+            className={`sidebar_item ${
+              selectedChatId === chat.chatId ? "selected" : ""
+            }`}
+          >
+            <div className="sidebar_title_wrapper">
+              <p className="sidebar_title">{chat.summaryTitle}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

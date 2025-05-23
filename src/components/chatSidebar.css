@@ -1,0 +1,77 @@
+.sidebar_list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  list-style: none;
+  padding: 10px 20px 0 10px;
+  height: calc(100vh - 70px);
+  background-color: #f9f9f9;
+  margin: 0;
+
+  scrollbar-width: thin;
+  scrollbar-color: #ececec #f9f9f9; /* Firefox 지원용 */
+}
+
+.sidebar_list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar_list::-webkit-scrollbar-track {
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.sidebar_list::-webkit-scrollbar-thumb {
+  background-color: #ececec;
+  border-radius: 8px;
+  border: 2px solid #f0f0f0;
+}
+
+.sidebar_list::-webkit-scrollbar-thumb:hover {
+  background-color: #ececec;
+}
+
+.sidebar_item {
+  padding: 10px 14px;
+  cursor: pointer;
+  border-radius: 9px;
+  font-weight: 500;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; /* 여러 줄로 내려가기 위함 */
+  align-items: flex-start;
+
+  transition: background-color 0.2s;
+}
+.sidebar_item:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar_item:hover {
+  background-color: #e3e3e3;
+}
+
+.sidebar_item.selected {
+  background-color: #e5e7eb;
+}
+
+.sidebar_title_wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.sidebar_title {
+  font-size: 0.875rem;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  width: 150px;
+}
+
+.sidebar_more {
+  margin-left: 8px;
+  font-weight: bold;
+  color: #888;
+}

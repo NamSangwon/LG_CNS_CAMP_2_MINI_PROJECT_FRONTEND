@@ -101,7 +101,11 @@ export default function MyPage() {
                   <UserCommentCard comment={c} onDelete={handleCommentDelete} />
                 </div>
               ) : (
-                <UserCommentCard key={c.comment_id} comment={c} onDelete={handleCommentDelete} />
+                <UserCommentCard
+                  key={c.comment_id}
+                  comment={c}
+                  onDelete={handleCommentDelete}
+                />
               )
             )}
             {commentList.loading && <div className="loading">로딩 중…</div>}
