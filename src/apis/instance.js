@@ -32,7 +32,8 @@ axiosInstance.interceptors.request.use(
 
     const userId = getLoggedInUserId();
 
-    if (!userId && url != "/post/") {
+    console.log(url);
+    if (!userId && !(url.startsWith("/post"))) {
       console.warn(`❌ [UNAUTHORIZED] ${url} → 유효하지 않은 토큰`);
       confirm("로그인 정보가 만료되었습니다. 로그인 페이지로 이동합니다.");
       window.location.href = "/login"; // 로그인 페이지로 리다이렉트
