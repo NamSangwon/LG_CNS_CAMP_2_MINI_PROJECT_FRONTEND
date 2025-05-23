@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { createComment } from "/src/apis/postApi";
-import { getLoggedInUserId } from "/src/utils/checkUser.js";
+import { createComment } from "../apis/postApi";
+import { getLoggedInUserId } from "../utils/checkUser.js";
 import { useNavigate } from "react-router-dom"; // navigate 임포트 추가
 
 import CommentList from "./CommentList";

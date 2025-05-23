@@ -1,16 +1,19 @@
 import axios from "axios";
 import { getLoggedInUserId } from "../utils/checkUser.js";
-import { EXCLUDED_URLS } from "../constants/excludedUrls";
+import { EXCLUDED_ROUTES } from "../constants/excludedUrls";
 
 // URL이 제외 대상인지 체크
-function isExcludedUrl(requestUrl) {
-  if (!requestUrl) return true;
-  return EXCLUDED_URLS.some((urlPrefix) => requestUrl.startsWith(urlPrefix));
+function isExcludedRoute(method, url) {
+  return EXCLUDED_ROUTES.some((route) => {
+    return (
+      route.method === method && url.startsWith(route.path) // 상세 조회도 포함되게
+    );
+  });
 }
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  timeout: 3000,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
@@ -18,9 +21,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    const method = config.method?.toUpperCase();
     const url = config.url ?? "";
 
-    if (isExcludedUrl(url)) {
+    if (isExcludedRoute(method, url)) {
       delete config.headers.Authorization;
       console.log(`🔓 [PUBLIC] ${url} → 토큰 없이 요청`);
       return config;
@@ -30,7 +34,11 @@ axiosInstance.interceptors.request.use(
 
     if (!userId) {
       console.warn(`❌ [UNAUTHORIZED] ${url} → 유효하지 않은 토큰`);
-      return config; // Authorization 없이 요청됨 (401 처리됨)
+      confirm("로그인 정보가 만료되었습니다. 로그인 페이지로 이동합니다.");
+      window.location.href = "/login"; // 로그인 페이지로 리다이렉트
+      return Promise.reject(
+        new axios.Cancel("요청 취소됨: 유효하지 않은 토큰") // 요청 취소
+      );
     }
 
     const token = localStorage.getItem("token");

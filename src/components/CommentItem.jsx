@@ -1,10 +1,18 @@
 
-import { checkOwner } from "/src/utils/checkUser.js";
-import { deleteComment } from "/src/apis/postApi.js";
+import { checkOwner } from "../utils/checkUser.js";
+import { deleteComment } from "../apis/postApi.js";
+
+import trashIcon from "../assets/icons/trash.png";
 
 import "./commentItem.css";
 
 export default function CommentItem({ ref, comment, setCommentCount, reset }) {
+
+    const profileImages = import.meta.glob("../assets/images/profile/*.png", {
+        eager: true,
+        import: "default",
+    });
+    const imgSrc =  profileImages[`../assets/images/profile/profile_${comment.profileImg}.png`];
 
   const handleDeleteComment = async () => {
     try {
@@ -36,13 +44,13 @@ export default function CommentItem({ ref, comment, setCommentCount, reset }) {
     <>
       <div className="comment_item" ref={ref}>
         <div className="comment_meta">
-          <img className="user_avatar" src={`/src/assets/images/profile/profile_${comment.profileImg}.png`} alt="User Avatar" />
+          <img className="user_avatar" src={imgSrc} alt="User Avatar" />
           <span className="comment_author">{comment.nickname}</span>
           {
             checkOwner(comment.userId) ? (
               <button className="delete_comment_button" aria-label="Delete comment"
                 onClick={handleDeleteComment}>
-                <img src="/src/assets/icons/trash.png" alt="Delete" className="delete_icon" />
+                <img src={trashIcon} alt="Delete" className="delete_icon" />
               </button>
             ) : null
           }

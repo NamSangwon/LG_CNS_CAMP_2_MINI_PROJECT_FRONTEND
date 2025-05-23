@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import PostActionItem from "/src/components/PostActionItem";
-import PostComment from "/src/components/PostComment";
+import PostActionItem from "../components/PostActionItem";
+import PostComment from "../components/PostComment";
 
 export default function PostFooter({ post }) {
     const [likeState, setLikeState] = useState(false);

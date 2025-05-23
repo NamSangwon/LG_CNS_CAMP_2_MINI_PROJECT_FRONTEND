@@ -4,7 +4,7 @@ import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
 
-import "./postContent.css"; // CSS 파일 import
+import "./postContent.css";
 
 export default function PostContent({ post }) {
     // SyntaxHighlighter에 등록할 언어 (필요한 경우 다른 언어도 추가)

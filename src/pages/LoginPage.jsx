@@ -1,7 +1,8 @@
-import axios from "axios";
+import axiosInstance from "../apis/instance";
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./LoginPage.css";
+import backgroundImg from "../assets/images/bg_chatbot.png";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8080/signin", form);
+      const res = await axiosInstance.post("/signin", form);
       const token = res.headers.authorization?.split(" ")[1];
       if (token) {
         localStorage.setItem("token", token);
@@ -66,7 +67,7 @@ export default function LoginPage() {
         </form>
       </div>
       <div className="illustration">
-        <img src="/src/assets/images/bg_chatbot.png" alt="일러스트" />
+        <img src={backgroundImg} alt="일러스트" />
       </div>
     </div>
   );
