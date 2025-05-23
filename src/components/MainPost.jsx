@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import "./mainPage.css";
 import { useNavigate } from "react-router-dom";
 import likedHeart from "../assets/icons/likedheart.png";
@@ -7,6 +7,7 @@ import comments_icon from "../assets/icons/message.png";
 import { togglePostLike } from "../apis/userApi.js";
 import ReactMarkdown from "react-markdown";
 import { getLoggedInUserId } from "/src/utils/checkUser.js";
+
 
 export default function MainPost({ post }) {
   const navigate = useNavigate();
@@ -30,32 +31,31 @@ export default function MainPost({ post }) {
     navigate(`/post/${postId}`);
   };
 
-  const profileImages = import.meta.glob("../assets/images/profile/*.png", {
+  const profileImages = import.meta.glob('../assets/images/profile/*.png', {
     eager: true,
-    import: "default",
+    import: 'default'
   });
-  const imgSrc =
-    profileImages[`../assets/images/profile/profile_${profileImgCode}.png`];
-
+  const imgSrc = profileImages[`../assets/images/profile/profile_${profileImgCode}.png`];
+  
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const [likedState, setLikedState] = useState(liked);
   const heartImg = likedState ? likedHeart : unlikedHeart;
 
-  const handleLike = async () => {
-    const next = !likedState;
-    setLikedState(next);
-    setLikesCount(prev => prev + (next ? 1 : -1));
+  const handleLike = async () => { 
     if (getLoggedInUserId() == null) {
         if (confirm("로그인하시겠습니까?")) 
           navigate('/login');
         return;
       }
+    const next = !likedState;
+    setLikedState(next);
+    setLikesCount(prev => prev + (next ? 1 : -1));
     try {
       await togglePostLike(postId, next);
     } catch (error) {
       console.error("좋아요 토글 실패:", error);
       setLikedState(!next);
-      setLikesCount((prev) => prev - (next ? 1 : -1));
+      setLikesCount(prev => prev - (next ? 1 : -1));
     }
   };
 
@@ -70,16 +70,16 @@ export default function MainPost({ post }) {
         </div>
       </div>
 
-      <div className="postTitle" onClick={handleClick}>
-        {title}
-      </div>
+      <div className="postTitle" onClick={handleClick}>{title}</div>
 
-      <div className="post_contnet" onClick={handleClick}>
-        <ReactMarkdown>{content}</ReactMarkdown>
-      </div>
+      <div className="post_contnet" onClick={handleClick}><ReactMarkdown>{content}</ReactMarkdown></div>
 
       <div className="icon_group">
-        <img className="icon_button" onClick={handleLike} src={heartImg} />
+        <img
+          className="icon_button"
+          onClick={handleLike}
+          src={heartImg}
+        />
         <span className="icon_text">{likesCount}</span>
 
         <div
