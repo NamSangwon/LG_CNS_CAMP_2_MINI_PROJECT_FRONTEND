@@ -15,7 +15,6 @@
 }
 .chat_input_box {
   width: 100%;
-  height: 100px;
   display: flex;
   flex-direction: column;
   border: 1px solid #f0f0f0;
@@ -27,13 +26,26 @@
 
 .chat_input_textarea {
   width: 100%;
-  height: 50px;
+  min-height: 50px;
+  max-height: 200px;
   border: none;
   font-size: 0.875rem;
   box-sizing: border-box;
   resize: none;
-  line-height: 40px;
-  overflow: hidden;
+  line-height: 1.4;
+  overflow-y: auto;
+}
+.chat_input_textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat_input_textarea::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 3px;
+}
+
+.chat_input_textarea::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 .chat_input_textarea:focus {
   outline: none;
@@ -50,14 +62,14 @@
   align-self: flex-end;
 }
 .chat_input_textarea:disabled {
-  color: #fff; /* 글자 색 흰색 */
-  background-color: transparent; /* 또는 #fff */
-  opacity: 1; /* 흐릿하게 보이는 것 방지 */
+  color: #fff;
+  background-color: transparent;
+  opacity: 1;
 }
 
 .chat_input_textarea:disabled::placeholder {
-  color: #fff; /* placeholder도 흰색으로 */
-  opacity: 1; /* 흐림 방지 */
+  color: #fff;
+  opacity: 1;
 }
 .send_icon {
   cursor: pointer;

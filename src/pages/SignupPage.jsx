@@ -25,6 +25,22 @@ export default function SignupPage() {
   });
 
   const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const validatePassword = (password) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=-]).{8,}$/;
+    return regex.test(password);
+  };
+
+  const validateUserId = (userId) => {
+    const regex = /^[a-zA-Z0-9]{4,20}$/;
+    return regex.test(userId);
+  };
+
+  const validateNickname = (nickname) => {
+    const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,20}$/;
+    return nicknameRegex.test(nickname);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -55,13 +71,36 @@ export default function SignupPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // 초기화
+
+    if (!validateUserId(form.userId)) {
+      setErrorMessage("아이디는 영문/숫자 4~20자이며 특수문자는 사용할 수 없습니다.");
+      return;
+    }
+
+    if (!validatePassword(form.password)) {
+      setErrorMessage("비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다.");
+      return;
+    }
+
+    if (!validateNickname(form.nickname)) {
+      setErrorMessage("닉네임은 2~20자의 영문, 숫자, 한글만 사용할 수 있으며 공백과 특수문자는 사용할 수 없습니다.");
+      return;
+    }
+
+    if (form.password !== form.confirmPassword) {
+      setPasswordMatchError(true);
+      alert("비밀번호가 일치하지 않습니다. 확인해주세요.")
+      return;
+    }
+
     try {
       await axiosInstance.post("/signup", form);
       alert("회원가입 성공");
       navigate("/login");
     } catch (err) {
-      const msg = err.response?.data ?? "회원가입 실패";
-      alert("에러: " + msg);
+      const msg = err.response?.data;
+      setErrorMessage(msg || "회원가입 중 오류가 발생했습니다.");
     }
   };
 
@@ -142,6 +181,9 @@ export default function SignupPage() {
             max={24}
             required
           />
+
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
           <button type="submit">회원가입</button>
         </form>
         <div className="login-link">

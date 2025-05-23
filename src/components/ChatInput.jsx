@@ -43,6 +43,7 @@ export default function ChatInput({ onSubmit, disabled }) {
         <div className="chat_input_box">
           <textarea
             className="chat_input_textarea"
+            style={{ lineHeight: "1.4", overflowY: "auto" }}
             disabled={disabled}
             value={text}
             onChange={handleChange}
