@@ -1,11 +1,11 @@
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { useRef, useState, useEffect } from 'react';
 
-import { getLoggedInUserId } from "/src/utils/checkUser.js";
-import { fetchPost } from "/src/apis/postApi";
+import { getLoggedInUserId } from "../utils/checkUser.js";
+import { fetchPost } from "../apis/postApi";
 
-import PostHeader from "/src/components/PostHeader";
-import PostContent from "/src/components/PostContent";
+import PostHeader from "../components/PostHeader";
+import PostContent from "../components/PostContent";
 import PostFooter from "../components/PostFooter";
 
 import "./postPage.css";

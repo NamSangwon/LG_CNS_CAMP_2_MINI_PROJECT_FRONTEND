@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { getLoggedInUserId } from "/src/utils/checkUser.js";
+import { getLoggedInUserId } from "../utils/checkUser.js";
+
+import userIcon from "../assets/icons/user.png";
+import starsIcon from "../assets/icons/stars.png";
+import logoIcon from "../assets/logo/logo.png"
 
 import "./header.css";
 
@@ -22,7 +26,7 @@ export default function Header() {
             <div className="cochalla_frame">
               <img
                 className="cochalla_logo"
-                src="/src/assets/logo/logo.png"
+                src={logoIcon}
                 alt="Cochalla Logo"
               />
               <span className="cochalla_text">Cochalla</span>
@@ -35,7 +39,7 @@ export default function Header() {
                 <span className="question_text">질문하기</span>
                 <img
                   className="question_icon"
-                  src="/src/assets/icons/stars.png"
+                  src={starsIcon}
                   alt="질문하기"
                 />
               </div>
@@ -44,7 +48,7 @@ export default function Header() {
               <>
                 <Link to="/mypage">
                   <div>
-                    <img className="user_img" src={`/src/assets/icons/user.png`} alt="User Profile" />
+                    <img className="user_img" src={userIcon} alt="User Profile" />
                   </div>
                 </Link>
               </>

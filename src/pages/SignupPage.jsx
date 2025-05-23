@@ -3,7 +3,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SignupPage.css";
 
+import profile1 from "../assets/images/profile/profile_1.png";
+import profile2 from "../assets/images/profile/profile_2.png";
+import profile3 from "../assets/images/profile/profile_3.png";
+import profile4 from "../assets/images/profile/profile_4.png";
+import profile5 from "../assets/images/profile/profile_5.png";
+import profile6 from "../assets/images/profile/profile_6.png";
+
+const profiles = [profile1, profile2, profile3, profile4, profile5, profile6];
+
 export default function SignupPage() {
+
   const navigate = useNavigate(); // 추가
   const [form, setForm] = useState({
     userId: "",
@@ -96,27 +106,30 @@ export default function SignupPage() {
           <div className="profile-selection">
             <p>프로필 이미지 선택</p>
             <div style={{ display: "flex", gap: "10px" }}>
-              {[1, 2, 3, 4, 5, 6].map((num) => (
-                <label key={num}>
-                  <input
-                    type="radio"
-                    name="profileImg"
-                    placeholder="프로필사진"
-                    value={num}
-                    checked={form.profileImg === num}
-                    onChange={handleProfileChange}
-                  />
-                  <img
-                    src={`/src/assets/images/profile/profile_${num}.png`}
-                    alt={`프로필 ${num}번`}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                </label>
-              ))}
+              {[1, 2, 3, 4, 5, 6].map((num) => {
+                const profileImage = profiles[num - 1];
+                return (
+                  <label key={num}>
+                    <input
+                      type="radio"
+                      name="profileImg"
+                      placeholder="프로필사진"
+                      value={num}
+                      checked={form.profileImg === num}
+                      onChange={handleProfileChange}
+                    />
+                    <img
+                      src={profileImage}
+                      alt={`프로필 ${num}번`}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </label>
+                );
+              })}
             </div>
           </div>
           <label htmlFor="resTime">요약 예약 시간</label>

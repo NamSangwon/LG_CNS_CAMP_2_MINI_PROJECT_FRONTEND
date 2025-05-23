@@ -1,9 +1,9 @@
 import { useEffect, useCallback, useRef } from 'react';
-import { fetchComments } from "/src/apis/postApi.js";
+import { fetchComments } from "../apis/postApi.js";
 
 import CommentItem from './CommentItem';
 
-import useInfiniteList from '/src/hooks/useInfiniteList.js';
+import useInfiniteList from '../hooks/useInfiniteList.js';
 import "./commentList.css";
 
 export default function CommentList({ postId, setCommentCount, commentRefreshTrigger }) {

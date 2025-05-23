@@ -1,6 +1,10 @@
-import { updateLikeState } from "/src/apis/postApi";
-import { getLoggedInUserId } from "/src/utils/checkUser.js";
+import { updateLikeState } from "../apis/postApi";
+import { getLoggedInUserId } from "../utils/checkUser.js";
 import { useNavigate } from "react-router-dom"; 
+
+import heartIcon from "../assets/icons/heart.png";
+import likedHeartIcon from "../assets/icons/likedheart.png";
+import messageIcon from "../assets/icons/message.png";
 
 import "./postActionItem.css";
 
@@ -42,13 +46,13 @@ export default function PostActionItem({
                 <div className="action_item" onClick={handleToggleLike}>
                     {
                         likeState ?
-                            (<img src="/src/assets/icons/full_heart.png" alt="Likes" className="action_icon" />)
-                            : (<img src="/src/assets/icons/empty_heart.png" alt="Likes" className="action_icon" />)
+                            (<img src={likedHeartIcon} alt="Likes" className="action_icon" />)
+                            : (<img src={heartIcon} alt="Likes" className="action_icon" />)
                     }
                     <span className="action_count">{likeCount}</span>
                 </div>
                 <div className="action_item">
-                    <img src="/src/assets/icons/message-circle.png" alt="Comments" className="action_icon" />
+                    <img src={messageIcon} alt="Comments" className="action_icon" />
                     <span className="action_count">{commentCount}</span>
                 </div>
             </div>
