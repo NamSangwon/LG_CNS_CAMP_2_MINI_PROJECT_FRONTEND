@@ -33,6 +33,12 @@ export default function MyPage() {
     if (activeTab === "내 댓글") commentList.reset();
   }, [activeTab]);
 
+  const handleRetrySuccess = () => {
+    if (activeTab === "내 게시글") postList.reset();
+    if (activeTab === "관심 게시글") likedList.reset();
+    if (activeTab === "내 댓글") commentList.reset();
+  };
+
   const handleCommentDelete = () => {
     commentList.reset();
   };
@@ -54,13 +60,18 @@ export default function MyPage() {
               .map((post, i) =>
                 i === postList.items.length - 1 ? (
                   <div key={post.post_id} ref={postList.lastRef}>
-                    <UserPostCard post={post} nickname={post.author_name} />
+                    <UserPostCard
+                      post={post}
+                      nickname={post.author_name}
+                      onRetrySuccess={handleRetrySuccess}
+                    />
                   </div>
                 ) : (
                   <UserPostCard
                     key={post.post_id}
                     post={post}
                     nickname={post.author_name}
+                    onRetrySuccess={handleRetrySuccess}
                   />
                 )
               )}

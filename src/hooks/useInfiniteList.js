@@ -29,7 +29,10 @@ export default function useInfiniteList(fetchFn, limit = 10) {
         setHasMore(true);
         offsetRef.current = 0;
         loadingRef.current = false;
-    }, []);
+        setTimeout(() => {
+            loadMore();
+        }, 0);
+    }, [loadMore]);
 
     const observer = useRef();
     const lastRef = useCallback((node) => {

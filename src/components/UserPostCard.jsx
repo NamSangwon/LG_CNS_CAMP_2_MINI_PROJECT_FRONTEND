@@ -6,9 +6,9 @@ import heartIcon from "../assets/icons/heart.png";
 import likedHeartIcon from "../assets/icons/likedheart.png";
 import messageIcon from "../assets/icons/message.png";
 import alertIcon from "../assets/icons/alert.png";
-import { updatePostVisibility, togglePostLike } from "../apis/userApi";
+import { updatePostVisibility, togglePostLike, retrySummary } from "../apis/userApi";
 
-export default function UserPostCard({ post, onLikeChange }) {
+export default function UserPostCard({ post, onLikeChange, onRetrySuccess }) {
   const navigate = useNavigate();
   const location = useLocation();
   const {
@@ -22,7 +22,7 @@ export default function UserPostCard({ post, onLikeChange }) {
     liked,
     author_name,
     author_profile_img,
-    summary_id
+    summary_id,
   } = post;
 
   const pathname = location.pathname;
@@ -35,7 +35,7 @@ export default function UserPostCard({ post, onLikeChange }) {
   const [likeCount, setLikeCount] = useState(like_cnt);
   const [isRetrying, setIsRetrying] = useState(false);
 
-  const isEmpty = !title && !content;
+  const isEmpty = (title == null || title.trim() === "") && (content == null || content.trim() === "");
   const formattedDate = created_at
     ? new Date(created_at).toISOString().slice(0, 10)
     : "";
@@ -72,16 +72,21 @@ export default function UserPostCard({ post, onLikeChange }) {
     }
   };
 
-  const handleRetry = () => {
-    setIsRetrying(true);
-    setTimeout(() => {
-      setIsRetrying(false);
-    }, 5000);
-  };
-
   const handleCardClick = () => {
     navigate(`/post/${post_id}`);
   };
+
+  const handleRetry = async () => {
+  setIsRetrying(true);
+  try {
+    await retrySummary(summary_id);
+  } catch (error) {
+    // 에러는 무시하고 리로딩
+  } finally {
+    setIsRetrying(false);
+    onRetrySuccess?.(); // 무조건 호출
+  }
+};
 
   if (isEmpty) {
     return isRetrying ? (
@@ -95,9 +100,15 @@ export default function UserPostCard({ post, onLikeChange }) {
       <div className="error_card">
         <span className="error_message">
           <img src={alertIcon} alt="alert" className="error_icon" />
-          {formattedDate} 요약 생성 중 오류가 발생했어요. 재시도 버튼을 눌러 요약을 다시 요청해주세요.
+          {formattedDate} 요약 생성 중 오류가 발생했어요. 재시도 버튼을 눌러
+          요약을 다시 요청해주세요.
         </span>
-        <button className="retry_button" onClick={(e) => { e.stopPropagation(); handleRetry(); }}>
+        <button
+          className="retry_button"
+          onClick={(e) => {
+            handleRetry();
+          }}
+        >
           재시도
         </button>
       </div>
@@ -111,7 +122,8 @@ export default function UserPostCard({ post, onLikeChange }) {
           <span className="userpost_card_date with_profile">
             <img src={avatarSrc} alt="profile" className="profile_img" />
             <span>
-              Posted by <span className="post_nickname">{author_name}</span> · {formattedDate}
+              Posted by <span className="post_nickname">{author_name}</span> ·{" "}
+              {formattedDate}
             </span>
           </span>
         ) : (
@@ -126,7 +138,10 @@ export default function UserPostCard({ post, onLikeChange }) {
         <div className="userpost_card_stats">
           <span
             className="icon_text"
-            onClick={(e) => { e.stopPropagation(); handleLike(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLike();
+            }}
             style={{ cursor: "pointer" }}
           >
             <img src={heartImg} alt="heart" className="icon" />
@@ -138,12 +153,18 @@ export default function UserPostCard({ post, onLikeChange }) {
           </span>
         </div>
         {canToggle && (
-          <div className="userpost_card_toggle" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="userpost_card_toggle"
+            onClick={(e) => e.stopPropagation()}
+          >
             <label className="switch">
               <input
                 type="checkbox"
                 checked={publicState}
-                onChange={(e) => { e.stopPropagation(); handleToggle(); }}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  handleToggle();
+                }}
               />
               <span className="slider round"></span>
             </label>

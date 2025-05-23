@@ -20,7 +20,7 @@ export default function ChatWindow({ chatId }) {
       try {
         const res = await axiosInstance.get(`/chat/list/${chatId}`);
         setChatMessageData(res.data);
-        console.log(`채팅방 대화 ${chatId}:`, res.data);
+        // console.log(`채팅방 대화 ${chatId}: 오픈`, res.data);
       } catch (err) {
         if (err.response?.status === 403) {
           alert("접근할 수 없는 채팅입니다.");

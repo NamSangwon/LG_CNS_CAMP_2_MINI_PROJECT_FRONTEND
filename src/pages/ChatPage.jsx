@@ -29,7 +29,6 @@ export default function ChatPage() {
 
     fetchChatList();
   }, []);
-  useEffect(() => {}, [paramChatId, selectedChatId]);
 
   const activeChatId = paramChatId || selectedChatId || latestChatId;
 
@@ -38,7 +37,7 @@ export default function ChatPage() {
       <nav aria-label="지난 기록">
         <ChatSidebar
           list={chatHistoryList}
-          selectedChatId={activeChatId}
+          activeChatId={activeChatId}
           onSelect={setSelectedChatId}
           currentLatestChatId={latestChatId}
         />

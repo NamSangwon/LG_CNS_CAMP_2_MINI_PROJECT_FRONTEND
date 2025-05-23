@@ -139,3 +139,16 @@ export async function deleteComment(commentId) {
     handle403Error(error);
   }
 }
+
+export async function retrySummary(summaryId) {
+  const token = ensureAuth();
+  if (!token) return;
+  try {
+    const response = await axiosInstance.post(`/summary/retry?summaryId=${summaryId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
+  } catch (error) {
+    handle403Error(error);
+  }
+}

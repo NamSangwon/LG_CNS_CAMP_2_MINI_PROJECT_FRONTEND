@@ -1,6 +1,6 @@
 import axiosInstance from "../apis/instance";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignupPage.css";
 
 import profile1 from "../assets/images/profile/profile_1.png";
@@ -13,7 +13,6 @@ import profile6 from "../assets/images/profile/profile_6.png";
 const profiles = [profile1, profile2, profile3, profile4, profile5, profile6];
 
 export default function SignupPage() {
-
   const navigate = useNavigate(); // 추가
   const [form, setForm] = useState({
     userId: "",
@@ -74,23 +73,29 @@ export default function SignupPage() {
     setErrorMessage(""); // 초기화
 
     if (!validateUserId(form.userId)) {
-      setErrorMessage("아이디는 영문/숫자 4~20자이며 특수문자는 사용할 수 없습니다.");
+      setErrorMessage(
+        "아이디는 영문/숫자 4~20자이며 특수문자는 사용할 수 없습니다."
+      );
       return;
     }
 
     if (!validatePassword(form.password)) {
-      setErrorMessage("비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다.");
+      setErrorMessage(
+        "비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함한 8자 이상이어야 합니다."
+      );
       return;
     }
 
     if (!validateNickname(form.nickname)) {
-      setErrorMessage("닉네임은 2~20자의 영문, 숫자, 한글만 사용할 수 있으며 공백과 특수문자는 사용할 수 없습니다.");
+      setErrorMessage(
+        "닉네임은 2~20자의 영문, 숫자, 한글만 사용할 수 있으며 공백과 특수문자는 사용할 수 없습니다."
+      );
       return;
     }
 
     if (form.password !== form.confirmPassword) {
       setPasswordMatchError(true);
-      alert("비밀번호가 일치하지 않습니다. 확인해주세요.")
+      alert("비밀번호가 일치하지 않습니다. 확인해주세요.");
       return;
     }
 
@@ -187,7 +192,7 @@ export default function SignupPage() {
           <button type="submit">회원가입</button>
         </form>
         <div className="login-link">
-          이미 계정이 있으신가요? <a href="/login">로그인</a>
+          이미 계정이 있으신가요? <Link to="/login">로그인</Link>
         </div>
       </div>
     </div>

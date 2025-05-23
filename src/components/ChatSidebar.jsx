@@ -3,7 +3,7 @@ import "./chatSidebar.css";
 
 export default function ChatSidebar({
   list,
-  selectedChatId,
+  activeChatId,
   onSelect,
   currentLatestChatId,
 }) {
@@ -26,7 +26,7 @@ export default function ChatSidebar({
             key={chat.chatId}
             onClick={() => handleSelect(chat.chatId)}
             className={`sidebar_item ${
-              selectedChatId === chat.chatId ? "selected" : ""
+              String(activeChatId) === String(chat.chatId) ? "selected" : ""
             }`}
           >
             <div className="sidebar_title_wrapper">
